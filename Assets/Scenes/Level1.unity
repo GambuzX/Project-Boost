@@ -140,12 +140,12 @@ PrefabInstance:
     - target: {fileID: 4104314841679217798, guid: 8de731088c9106749a71538272774806,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.86
+      value: 9.45
       objectReference: {fileID: 0}
     - target: {fileID: 4104314841679217798, guid: 8de731088c9106749a71538272774806,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -17.61
       objectReference: {fileID: 0}
     - target: {fileID: 4104314841679217798, guid: 8de731088c9106749a71538272774806,
         type: 3}
@@ -209,7 +209,7 @@ PrefabInstance:
     - target: {fileID: 6501950549694051804, guid: 37b9a2be95a56594a9383abb3200429f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 6501950549694051804, guid: 37b9a2be95a56594a9383abb3200429f,
         type: 3}
@@ -401,6 +401,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 640e4a4a0ae1aea43942da765230df8d, type: 3}
+--- !u!1 &2109944290 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6501950549694051807, guid: 37b9a2be95a56594a9383abb3200429f,
+    type: 3}
+  m_PrefabInstance: {fileID: 995029970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &2109944291
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109944290}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2109944293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109944290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b14424581f344d4985c9321ac3f47c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrustSpeed: 10
 --- !u!1001 &3991201294355365095
 PrefabInstance:
   m_ObjectHideFlags: 0
