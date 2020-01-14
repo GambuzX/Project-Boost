@@ -8,9 +8,13 @@ public class Rocket : MonoBehaviour
 
     [SerializeField] float thrustSpeed = 1f;
     [SerializeField] float rotationSpeed = 1f;
+    [SerializeField] float levelLoadDelay = 2f;
     [SerializeField] AudioClip mainEngineSound;
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip levelClearSound;
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem winParticles;
+    [SerializeField] ParticleSystem explosionParticles;
 
     private Rigidbody rigidBody;
     private AudioSource audioSource;
@@ -47,8 +51,14 @@ public class Rocket : MonoBehaviour
             rigidBody.AddRelativeForce(Vector3.up * Time.deltaTime * thrustSpeed);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space)) audioSource.Play();
-        if(Input.GetKeyUp(KeyCode.Space)) audioSource.Stop();        
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            audioSource.Play();
+            mainEngineParticles.Play();
+        }
+        if(Input.GetKeyUp(KeyCode.Space)) {
+            audioSource.Stop();
+            mainEngineParticles.Stop();
+        }
     }
 
     private void HandleRotation() {
@@ -77,9 +87,10 @@ public class Rocket : MonoBehaviour
 
             case "Finished":
                 state = State.TRANSCENDING;
+                winParticles.Play();
                 audioSource.clip = levelClearSound;
                 audioSource.Play();
-                Invoke("LoadSecondLevel", 1f);
+                Invoke("LoadSecondLevel", levelLoadDelay);
                 break;
 
             case "Fuel":
@@ -88,9 +99,10 @@ public class Rocket : MonoBehaviour
 
             default:
                 state = State.DYING;
+                explosionParticles.Play();
                 audioSource.clip = deathSound;
                 audioSource.Play();
-                Invoke("LoadFirstLevel", 1f);
+                Invoke("LoadFirstLevel", levelLoadDelay);
                 break;
         }
     }
