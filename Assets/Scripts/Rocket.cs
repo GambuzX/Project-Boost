@@ -19,6 +19,8 @@ public class Rocket : MonoBehaviour
     private Rigidbody rigidBody;
     private AudioSource audioSource;
 
+    private bool collisionsEnabled;
+
     enum State {
         ALIVE = 0,
         DYING,
@@ -34,6 +36,7 @@ public class Rocket : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         audioSource.clip = mainEngineSound;
+        collisionsEnabled = true;
     }
 
     // Update is called once per frame
@@ -42,6 +45,10 @@ public class Rocket : MonoBehaviour
         if (state == State.ALIVE) {
             HandleThrust();
             HandleRotation();
+        }
+
+        if (Debug.isDebugBuild) {
+            HandleDebugKeys();
         }
     }
 
@@ -76,9 +83,19 @@ public class Rocket : MonoBehaviour
         rigidBody.freezeRotation = false;
     }
 
+    private void HandleDebugKeys() {
+        if(Input.GetKey(KeyCode.L)) {
+            LoadNextLevel();
+        }
+
+        if(Input.GetKey(KeyCode.C)) {
+            collisionsEnabled = !collisionsEnabled;
+        }
+    }
+
     void OnCollisionEnter(Collision collision) {
 
-        if (state != State.ALIVE) return;
+        if (state != State.ALIVE || !collisionsEnabled) return;
 
         switch(collision.transform.tag) {
             case "Friendly":
@@ -90,7 +107,7 @@ public class Rocket : MonoBehaviour
                 winParticles.Play();
                 audioSource.clip = levelClearSound;
                 audioSource.Play();
-                Invoke("LoadSecondLevel", levelLoadDelay);
+                Invoke("LoadNextLevel", levelLoadDelay);
                 break;
 
             case "Fuel":
@@ -113,5 +130,11 @@ public class Rocket : MonoBehaviour
 
     private void LoadFirstLevel() {
         SceneManager.LoadScene(0);
+    }
+
+    private void LoadNextLevel() {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = (currentSceneIndex+1) % SceneManager.sceneCountInBuildSettings;
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }
